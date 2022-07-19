@@ -15,9 +15,13 @@ provider:
 
 functions:
   authorizer-first:
+    environment:
+      API_KEY: ${ssm:/app/apikey/first}
     handler: lambda/authorizer-first.handler
 
   authorizer-second:
+    environment:
+      API_KEY: ${ssm:/app/apikey/second}
     handler: lambda/authorizer-second.handler
 
   first:
