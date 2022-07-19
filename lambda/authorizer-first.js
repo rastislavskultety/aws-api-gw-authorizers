@@ -3,7 +3,7 @@ const {
 } = require("./create-authorization-response")
 
 exports.handler = async function (event) {
-  if (event.authorizationToken === "api-key-first") {
+  if (event.headers.authorization === "api-key-first") {
     return createAuthorizationResponse()
   } else {
     throw "Unauthorized"
