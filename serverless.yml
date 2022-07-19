@@ -1,0 +1,38 @@
+service: aws-api-gw-authorizers
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: nodejs14.x
+
+  apiGateway:
+    apiKeys:
+      - name: firstKey
+        value: ba0b7326-5042-4af5-b56d-48975f578ceb
+        description: API key for first lambda
+      - name: secondKey
+        value: 2ac948db-8078-469b-a137-b27e0f41cc7f
+        description: API key for first lambda
+
+functions:
+  authorizer-first:
+    handler: lambda/authorizer-first.handler
+
+  authorizer-second:
+    handler: lambda/authorizer-second.handler
+
+  first:
+    handler: lambda/first.handler
+    events:
+      - http:
+          path: first
+          method: get
+          authorizer: authorizer-first
+
+  second:
+    handler: lambda/second.handler
+    events:
+      - http:
+          path: second
+          method: get
+          authorizer: authorizer-second
